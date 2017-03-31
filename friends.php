@@ -20,7 +20,7 @@
 
   echo "<div class='main'>";
 
-  // Uncomment this line if you wish the user’s profile to show here
+  // Uncomment this line if you wish the userï¿½s profile to show here
   // showProfile($view);
 
   $followers = array();
@@ -82,6 +82,7 @@
        "View $name2 messages</a>";
 ?>
 
-    </div><br>
+    </div>
+    </div>
   </body>
 </html>

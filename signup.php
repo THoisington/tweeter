@@ -62,8 +62,11 @@ _END;
         $error = "That username already exists<br><br>";
       else
       {
-        queryMysql("INSERT INTO members VALUES('$user', '$pass')");
-        die("<h4>Account created</h4>Please Log in.<br><br>"); //login for the user here
+        queryMysql("INSERT INTO members(user,pass) VALUES('$user', '$pass')");
+        $_SESSION['user'] = $user;
+        $_SESSION['pass'] = $pass;
+        $url = "members.php?view=$user";
+        redirect($url);
       }
     }
   }

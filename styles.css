@@ -6,14 +6,10 @@
 }
 
 body {
-  width     :700px;
-  margin    :20px auto;
+  width:100%;
+  height: 100%;
   background:#f8f8f8;
-  border    :1px solid #888;
-}
-
-html {
-  background:#fff
+  margin: 0px;
 }
 
 img {
@@ -26,10 +22,11 @@ img {
 
 li a, .button {
   text-decoration:none;
+  color: #ed3526;
 }
 
 li a:hover, .button:hover {
-  color:green;
+  color:#ffc30c;
 }
  
 .appname {
@@ -58,19 +55,6 @@ li a:hover, .button:hover {
   margin-left:40px;
 }
 
-.menu li, .button {
-  display           :inline;
-  padding           :4px 6px;
-  border            :1px solid #777;
-  background        :#ddd;
-	color             :#d04;
-  margin-right      :8px;
-	border-radius     :5px;
-	-moz-box-shadow   :2px 2px 2px #888;
-	-webkit-box-shadow:2px 2px 2px #888;
-	box-shadow        :2px 2px 2px #888;
-}
-
 .subhead {
   font-weight:bold;
 }
@@ -93,4 +77,34 @@ li a:hover, .button:hover {
   font-weight:bold;
   font-style:italic;
   font-size :97px;
+}
+
+ul{
+  margin:0px;
+  padding:10px;
+}
+
+nav{
+  background-color: #ed3526;
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+.contentWrapper{
+  background-color: aliceblue;
+}
+
+nav, .contentWrapper{
+  width: 60%;
+  margin: 0% 18%;
+}
+
+nav li{
+  display           :inline;
+  padding           :4px 6px;
+  margin-right      :8px;
+}
+
+nav a{
+  color:white;
 }

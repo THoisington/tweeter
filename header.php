@@ -15,30 +15,47 @@
   }
   else $loggedin = FALSE;
 
-  echo "<title>$appname$userstr</title><link rel='stylesheet' " .
-       "href='styles.css' type='text/css'>"                     .
-       "</head><body><canvas id='logo' width='624' "    .
-       "height='96'>$appname</canvas>"             .
-       "<div class='appname'>$appname$userstr</div>"            .
-       "<script src='javascript.js'></script>";
+  $head = <<<HTML
+    <title>$appname$userstr</title>
+    <link rel='stylesheet' href='styles.css' type='text/css'>
+    <script src='javascript.js'></script>
+    </head><body>
+HTML;
+
+  echo $head;
 
   if ($loggedin)
   {
-    echo "<br><ul class='menu'>" .
-         "<li><a href='members.php?view=$user'>Home</a></li>" .
-         "<li><a href='members.php'>Members</a></li>"         .
-         "<li><a href='friends.php'>Friends</a></li>"         .
-         "<li><a href='messages.php'>Messages</a></li>"       .
-         "<li><a href='profile.php'>Edit Profile</a></li>"    .
-         "<li><a href='logout.php'>Log out</a></li></ul><br>";
-  }
+      $nav = <<<HTML
+        <nav>
+            <ul class='menu'>
+            <li><a href='members.php?view=$user'>Home</a></li>
+            <li><a href='members.php'>Members</a></li>
+            <li><a href='friends.php'>Friends</a></li>
+            <li><a href='messages.php'>Messages</a></li>
+            <li><a href='profile.php'>Edit Profile</a></li>
+            <li><a href='logout.php'>Log out</a></li>
+            </ul>
+        </nav>
+HTML;
+
+      echo $nav;
+  } //change to drop down with name as base li 
   else
   {
-    echo ("<br><ul class='menu'>" .
-          "<li><a href='index.php'>Home</a></li>"                .
-          "<li><a href='signup.php'>Sign up</a></li>"            .
-          "<li><a href='login.php'>Log in</a></li></ul><br>"     .
-          "<span class='info'>&#8658; You must be logged in to " .
-          "view this page.</span><br><br>");
+      $nav = <<<HTML
+      <nav>
+        <ul class='menu'>
+            <li><a href='index.php'>Home</a></li>
+            <li><a href='signup.php'>Sign up</a></li>
+            <li><a href='login.php'>Log in</a></li>
+        </ul>
+    </nav>
+    <p>You must be logged in to view this page.</p>
+HTML;
+      echo $nav;
+
   }
+
+    echo "<div class='contentWrapper'>";
 ?>

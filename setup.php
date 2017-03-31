@@ -12,26 +12,27 @@
 
   // Member ID is my own addition, I did not like the idea of members of a social media website without a primary key
   createTable('members',
-              'id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+              'id INT UNSIGNED NOT NULL AUTO_INCREMENT, 
               user VARCHAR(16),
               pass VARCHAR(16),
-              INDEX(id),
+              PRIMARY KEY(id),
               INDEX(user(6))');
 
   createTable('messages', 
-              'id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+              'id INT UNSIGNED NOT NULL AUTO_INCREMENT,
               auth VARCHAR(16),
               recip VARCHAR(16),
               pm CHAR(1),
               time INT UNSIGNED,
               message VARCHAR(4096),
+              PRIMARY KEY(id),
               INDEX(auth(6)),
               INDEX(recip(6))');
 
-  // which means I had to change friend from VARCHAR to INT
+  // which means I need to change friend from VARCHAR to INT
   createTable('friends',
               'user VARCHAR(16),
-              friend INT UNSIGNED,
+              friend VARCHAR(16),
               INDEX(user(6)),
               INDEX(friend(6))');
 

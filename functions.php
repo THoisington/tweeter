@@ -18,7 +18,7 @@
 	function queryMysql($query){
 		global $connection; //global? 
 		$result = $connection->query($query);
-		if(!result) die($connection->error); // checking if result is anything but 0?
+		if(!$result) die($connection->error); // checking if result is anything but 0?
 		return $result;
 	}
 
@@ -52,4 +52,41 @@
 			echo stripslashes($row['text']) . "<br style='clear:left;'><br>";
 		}
 	}
+
+	function redirect($url){
+	    if (headers_sent()){
+	      die('<script type="text/javascript">window.location=\''. $url .'\';</script‌​>');
+	    }
+	    else{
+	      header('Location: ' . $url);
+	      die();
+   	 	}    
+	}
+
+	function printMessages($result,$user,$view){
+        $num    = $result->num_rows;
+
+        for ($j = 0 ; $j < $num ; ++$j)
+        {
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+
+            if ($row['pm'] == 0 || $row['auth'] == $user || $row['recip'] == $user)
+            {
+                echo date('M jS \'y g:ia:', $row['time']);
+                echo " <a href='messages.php?view=" . $row['auth'] . "'>" . $row['auth']. "</a> ";
+
+                if ($row['pm'] == 0)
+                    echo "wrote: &quot;" . $row['message'] . "&quot; ";
+                else
+                    echo "whispered: <span class='whisper'>&quot;" .
+                        $row['message']. "&quot;</span> ";
+
+                if ($row['recip'] == $user)
+                    echo "[<a href='messages.php?view=$view" .
+                        "&erase=" . $row['id'] . "'>erase</a>]";
+
+                echo "<br>";
+            }
+        }
+    }
 ?>
