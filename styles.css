@@ -12,14 +12,6 @@ body {
   margin: 0px;
 }
 
-img {
-  border            :1px solid black;
-  margin-right      :15px;
-  -moz-box-shadow   :2px 2px 2px #888;
-  -webkit-box-shadow:2px 2px 2px #888;
-  box-shadow        :2px 2px 2px #888;
-}
-
 li a, .button {
   text-decoration:none;
   color: #ed3526;
@@ -108,3 +100,33 @@ nav li{
 nav a{
   color:white;
 }
+
+div.message{
+  border: solid black 2px;
+  background-color: white;
+  margin-bottom: 10px;
+}
+
+div.messageHeader{
+  padding:20px 20px 0px 20px;
+}
+
+div.messageFooter{
+  position: relative;
+}
+
+span.time{
+  font-size: 10px;
+}
+
+p.messageContent{
+  padding-left: 20px;
+}
+
+
+a.delete{
+  position: absolute;
+  bottom: 0;
+  right:0;
+}
+

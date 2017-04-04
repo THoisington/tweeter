@@ -72,21 +72,62 @@
 
             if ($row['pm'] == 0 || $row['auth'] == $user || $row['recip'] == $user)
             {
-                echo date('M jS \'y g:ia:', $row['time']);
-                echo " <a href='messages.php?view=" . $row['auth'] . "'>" . $row['auth']. "</a> ";
+                $author = $row['auth'];
+                $content = $row['message'];
+                $timeStamp = date('M jS \'y g:ia', $row['time']);
 
-                if ($row['pm'] == 0)
-                    echo "wrote: &quot;" . $row['message'] . "&quot; ";
-                else
-                    echo "whispered: <span class='whisper'>&quot;" .
-                        $row['message']. "&quot;</span> ";
-
+                $message = <<<HTML
+                <div class="message">
+                <div class ="messageHeader">
+                <a class="author" href='messages.php?view=$author'>$author</a>
+                <span class="time">$timeStamp</span>
+                </div>
+                <p class="messageContent">$content</p>
+                <div class="messageFooter">
+HTML;
+                echo $message;
                 if ($row['recip'] == $user)
-                    echo "[<a href='messages.php?view=$view" .
-                        "&erase=" . $row['id'] . "'>erase</a>]";
-
-                echo "<br>";
+                    echo "<a class='delete' href='messages.php?view=$view" .
+                        "&erase=" . $row['id'] . "'><img alt='delete' src='trash.png' width='30' height='30'></a>";
+                echo "</div></div>";
             }
         }
     }
+
+    function printMembers($result,$user){
+
+        $num    = $result->num_rows;
+
+        for ($j = 0 ; $j < $num ; ++$j)
+        {
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+            if ($row['user'] == $user) continue; // If this is your profile, skip it
+
+            //Prints the current member
+            echo "<li><a href='members.php?view=" .
+                $row['user'] . "'>" . $row['user'] . "</a>";
+            $follow = "follow";
+
+            $result1 = queryMysql("SELECT * FROM friends WHERE
+          user='" . $row['user'] . "' AND friend='$user'");
+            $t1      = $result1->num_rows;
+            $result1 = queryMysql("SELECT * FROM friends WHERE
+          user='$user' AND friend='" . $row['user'] . "'");
+            $t2      = $result1->num_rows;
+
+            if (($t1 + $t2) > 1) echo " &harr; is a mutual friend";
+            elseif ($t1)         echo " &larr; you are following";
+            elseif ($t2)       { echo " &rarr; is following you";
+                $follow = "recip"; }
+
+            if (!$t1) echo " [<a href='members.php?add="   .$row['user'] . "'>$follow</a>]";
+            else      echo " [<a href='members.php?remove=".$row['user'] . "'>drop</a>]";
+        }
+
+
+
+
+
+    }
+
 ?>

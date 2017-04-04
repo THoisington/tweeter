@@ -25,7 +25,9 @@
 
   $followers = array();
   $following = array();
+  $strangers = array();
 
+  //Followers of User
   $result = queryMysql("SELECT * FROM friends WHERE user='$view'");
   $num    = $result->num_rows;
 
@@ -35,6 +37,7 @@
     $followers[$j] = $row['friend'];
   }
 
+  //People User follows
   $result = queryMysql("SELECT * FROM friends WHERE friend='$view'");
   $num    = $result->num_rows;
 
@@ -43,6 +46,8 @@
       $row           = $result->fetch_array(MYSQLI_ASSOC);
       $following[$j] = $row['user'];
   }
+
+
 
   $mutual    = array_intersect($followers, $following);
   $followers = array_diff($followers, $mutual);
